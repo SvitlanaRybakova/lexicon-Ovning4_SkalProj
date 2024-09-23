@@ -4,9 +4,6 @@ namespace SkalProj_Datastrukturer_Minne
 {
     class Program
     {
-        /// <summary>
-        /// The main method, vill handle the menues for the program
-        /// </summary>
         /// <param name="args"></param>
         static void Main()
         {
@@ -19,12 +16,12 @@ namespace SkalProj_Datastrukturer_Minne
                     + "\n3. Examine a Stack"
                     + "\n4. CheckParenthesis"
                     + "\n0. Exit the application");
-                char input = ' '; //Creates the character input to be used with the switch-case below.
+                char input = ' ';
                 try
                 {
-                    input = Console.ReadLine()![0]; //Tries to set input to the first char in an input line
+                    input = Console.ReadLine()![0];
                 }
-                catch (IndexOutOfRangeException) //If the input line is empty, we ask the users for some input.
+                catch (IndexOutOfRangeException)
                 {
                     Console.Clear();
                     Console.WriteLine("Please enter some input!");
@@ -57,21 +54,8 @@ namespace SkalProj_Datastrukturer_Minne
             }
         }
 
-        /// <summary>
-        /// Examines the datastructure List
-        /// </summary>
         static void ExamineList()
         {
-            /*
-             * Loop this method untill the user inputs something to exit to main menue.
-             * Create a switch statement with cases '+' and '-'
-             * '+': Add the rest of the input to the list (The user could write +Adam and "Adam" would be added to the list)
-             * '-': Remove the rest of the input from the list (The user could write -Adam and "Adam" would be removed from the list)
-             * In both cases, look at the count and capacity of the list
-             * As a default case, tell them to use only + or -
-             * Below you can see some inspirational code to begin working.
-            */
-
             List<string> theList = new List<string>();
             bool isActive = true;
 
@@ -82,9 +66,6 @@ namespace SkalProj_Datastrukturer_Minne
 
                 char nav = input[0]; // detect the First sign (+ or -)
                 string value = input.Substring(1).Trim().ToLower(); // rest of the value (name in the best case)
-                Console.WriteLine("NAV" + nav);
-                Console.WriteLine("Value" + value);
-
 
                 switch (nav)
                 {
@@ -118,9 +99,26 @@ namespace SkalProj_Datastrukturer_Minne
             }
         }
 
-        /// <summary>
-        /// Examines the datastructure Queue
-        /// </summary>
+
+        /* <summary>
+        2. Listans kapacitet ökar när antalet element i listan överstiger dess nuvarande kapacitet. 
+        När man  lägga till ett nytt element och listan inte har tillräckligt med plats, 
+        skapas en ny array med en större kapacitet, och de gamla elementen kopieras över till den nya arrayen.
+
+        3. Kapaciteten fördubblas varje gång den överskrids. 
+        Om den initiala kapaciteten exempelvis är 4 och du lägger till ett femte element, kommer kapaciteten att öka till 8
+
+        4. Kapaciteten fördubblas, genom att fördubbla kapaciteten sker minnesallokeringen mer sällan.
+        Om kapaciteten ökade exakt för varje nytt element skulle det innebära att en ny array skulle behöva skapas och alla befintliga element kopieras varje gång ett element läggs till, vilket skulle bli mycket dyrt för prestandan
+       
+        5. Kapaciteten minskar inte automatiskt när element tas bort från listan. 
+        För att anpassa den till det aktuella antalet element  => TrimExcess()
+
+        6. I situationer där hög prestanda och minneskontroll är avgörande, kan en egendefinierad array vara det bästa alternativet. 
+        Men om datamängden kan förändras eller om enkel användning är viktigare, kan en lista vara mer lämplig
+       </summary> */
+
+
         static void ExamineQueue()
         {
             /*
@@ -130,9 +128,9 @@ namespace SkalProj_Datastrukturer_Minne
             */
         }
 
-        /// <summary>
-        /// Examines the datastructure Stack
-        /// </summary>
+        /* <summary>
+        
+        </summary> */
         static void ExamineStack()
         {
             /*
