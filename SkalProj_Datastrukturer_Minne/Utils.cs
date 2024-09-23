@@ -19,7 +19,7 @@ namespace SkalProj_Datastrukturer_Minne
                 answer = Console.ReadLine() ?? "";
                 if (answer == "0") success = true;
 
-                if (string.IsNullOrWhiteSpace(answer) || answer.Length < 2)
+                if (string.IsNullOrWhiteSpace(answer))
                 {
                     Console.WriteLine($"You must enter a valid {prompt}");
                 }

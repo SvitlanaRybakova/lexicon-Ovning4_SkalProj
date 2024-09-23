@@ -56,13 +56,13 @@ namespace SkalProj_Datastrukturer_Minne
 
         static void ExamineList()
         {
-            List<string> theList = new List<string>();
+            List<string> lits = new List<string>();
             bool isActive = true;
 
             while (isActive)
             {
                 Utils.RenderMenu("Examine List Menu", Constants.ExamineListMenuOptions);
-                string input = Utils.AskForMenuOption("+/-(&& any name) OR the digit 0 to exit");
+                string input = Utils.AskForMenuOption("+/-(&& exact name) OR the digit 0 to exit");
 
                 char nav = input[0]; // detect the First sign (+ or -)
                 string value = input.Substring(1).Trim().ToLower(); // rest of the value (name in the best case)
@@ -70,12 +70,12 @@ namespace SkalProj_Datastrukturer_Minne
                 switch (nav)
                 {
                     case '+':
-                        theList.Add(value);
+                        lits.Add(value);
                         Console.WriteLine($"The name: {value} has been added to the List");
                         break;
 
                     case '-':
-                        if (theList.Remove(value))
+                        if (lits.Remove(value))
                         {
                             Console.WriteLine($"The name: {value} has been deleted from the List");
                         }
@@ -95,7 +95,7 @@ namespace SkalProj_Datastrukturer_Minne
                         break;
                 }
 
-                Console.WriteLine($"Ammount: {theList.Count}, Capasity: {theList.Capacity}");
+                Console.WriteLine($"Ammount: {lits.Count}, Capasity: {lits.Capacity}");
             }
         }
 
@@ -121,15 +121,55 @@ namespace SkalProj_Datastrukturer_Minne
 
         static void ExamineQueue()
         {
-            /*
-             * Loop this method untill the user inputs something to exit to main menue.
-             * Create a switch with cases to enqueue items or dequeue items
-             * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
-            */
+            Queue<string> queue = new Queue<string>();
+            bool isActive = true;
+
+            while (isActive)
+            {
+                Utils.RenderMenu("Examine Queue Menu", Constants.ExamineQueueMenuOptions);
+                string input = Utils.AskForMenuOption("+(&& exact name) OR - OR the digit 0 to exit");
+
+                char nav = input[0];
+
+                switch (nav)
+                {
+                    case '+':
+                        string value = input.Substring(1).Trim();
+                        queue.Enqueue(value);
+                        Console.WriteLine($"The name: {value} has been added to the Queue");
+                        break;
+
+                    case '-':
+                        if (queue.Count > 0)
+                        {
+                            string deletedValue = queue.Dequeue();
+                            Console.WriteLine($"The name: {deletedValue} has been deleted from the Queue");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"The queue is empty");
+                        }
+                        break;
+
+                    case '0':
+                        Console.WriteLine($"Back to Main Menu");
+                        isActive = false;
+                        break;
+
+                    default:
+                        Console.WriteLine("Please enter som valid input (+, -) or 0 to exit");
+                        break;
+                }
+
+                Console.WriteLine($"Ammount in queue: {queue.Count}");
+                Console.WriteLine("Current queue: " + string.Join(", ", queue));
+            }
         }
 
         /* <summary>
-        
+
+        FIFO = First in, First Out
+    
         </summary> */
         static void ExamineStack()
         {
