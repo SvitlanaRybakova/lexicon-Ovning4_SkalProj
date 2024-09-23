@@ -72,12 +72,50 @@ namespace SkalProj_Datastrukturer_Minne
              * Below you can see some inspirational code to begin working.
             */
 
-            //List<string> theList = new List<string>();
-            //string input = Console.ReadLine();
-            //char nav = input[0];
-            //string value = input.substring(1);
+            List<string> theList = new List<string>();
+            bool isActive = true;
 
-            //switch(nav){...}
+            while (isActive)
+            {
+                Utils.RenderMenu("Examine List Menu", Constants.ExamineListMenuOptions);
+                string input = Utils.AskForMenuOption("+/-(&& any name) OR the digit 0 to exit");
+
+                char nav = input[0]; // detect the First sign (+ or -)
+                string value = input.Substring(1).Trim().ToLower(); // rest of the value (name in the best case)
+                Console.WriteLine("NAV" + nav);
+                Console.WriteLine("Value" + value);
+
+
+                switch (nav)
+                {
+                    case '+':
+                        theList.Add(value);
+                        Console.WriteLine($"The name: {value} has been added to the List");
+                        break;
+
+                    case '-':
+                        if (theList.Remove(value))
+                        {
+                            Console.WriteLine($"The name: {value} has been deleted from the List");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"The name {value} not been found.");
+                        }
+                        break;
+
+                    case '0':
+                        Console.WriteLine($"Back to Main Menu");
+                        isActive = false;
+                        break;
+
+                    default:
+                        Console.WriteLine("Please enter som valid input (+, -) or 0 to exit");
+                        break;
+                }
+
+                Console.WriteLine($"Ammount: {theList.Count}, Capasity: {theList.Capacity}");
+            }
         }
 
         /// <summary>
