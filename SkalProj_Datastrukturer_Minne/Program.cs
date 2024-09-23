@@ -169,16 +169,60 @@ namespace SkalProj_Datastrukturer_Minne
         /* <summary>
 
         FIFO = First in, First Out
-    
+        
         </summary> */
+
         static void ExamineStack()
         {
-            /*
-             * Loop this method until the user inputs something to exit to main menue.
-             * Create a switch with cases to push or pop items
-             * Make sure to look at the stack after pushing and and poping to see how it behaves
-            */
+             Stack<string> stack = new Stack<string>();
+            bool isActive = true;
+
+            while (isActive)
+            {
+                Utils.RenderMenu("Examine Stack Menu", Constants.ExamineQueueMenuOptions);
+                string input = Utils.AskForMenuOption("+(&& exact name) OR - OR the digit 0 to exit");
+
+                char nav = input[0];
+
+                switch (nav)
+                {
+                    case '+':
+                        string value = input.Substring(1).Trim();
+                        stack.Push(value);
+                        Console.WriteLine($"The name: {value} has been added to the Stack");
+                        break;
+
+                    case '-':
+                        if (stack.Count > 0)
+                        {
+                            string deletedValue = stack.Pop();
+                            Console.WriteLine($"The name: {deletedValue} has been deleted from the Stack");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"The stack is empty");
+                        }
+                        break;
+
+                    case '0':
+                        Console.WriteLine($"Back to Main Menu");
+                        isActive = false;
+                        break;
+
+                    default:
+                        Console.WriteLine("Please enter som valid input (+, -) or 0 to exit");
+                        break;
+                }
+
+                Console.WriteLine($"Ammount in queue: {stack.Count}");
+                Console.WriteLine("Current queue: " + string.Join(", ", stack));
+            }
         }
+         /* <summary>
+
+        LIFO = Last in, First Out
+
+        </summary> */
 
         static void CheckParanthesis()
         {
