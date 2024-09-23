@@ -36,8 +36,7 @@ string name = "Bob"; // Lagras på heapen
 En ***värdetyp*** är en datatyp som innehåller faktiska värden, exempelvis heltal, flyttal, booleska värden (sant eller falskt) och tecken. Dessa lagras direkt i minnet på den plats där variabeln är deklarerad, och de tar oftast mindre utrymme jämfört med referenstyper. Du kan även skapa egna värdetyper med hjälp av nyckelordet struct.
 
 Exempel är:
-
-
+![Screenshot 2024-09-23 at 15 43 24](https://github.com/user-attachments/assets/e9fa2f7d-d1ad-4ba5-9d98-1eb1eaef5f85)
 
 En ***referenstyp*** är en datatyp som alltid lagras på heapen. Till skillnad från värdetyper, som lagrar själva värdet i minnet där variabeln deklareras, lagrar referenstyper en referens till minnesadressen där värdet finns lagrat.
 
@@ -49,7 +48,9 @@ Exempel:
 - delegate
 - string
 
-#### Följande metoder (se bild nedan) genererar olika svar. Den första returnerar 3, den andra returnerar 4, varför?
+#### 3. Följande metoder (se bild nedan) genererar olika svar. Den första returnerar 3, den andra returnerar 4, varför?
+![Screenshot 2024-09-23 at 15 50 02](https://github.com/user-attachments/assets/eb8b0665-471e-4b8e-be09-2035844a9786)
+
 Den första metoden returnerar 3 eftersom när raden `y = x` körs, kopieras värdet 3 från `x` till `y`, då de är värdetyper. Eftersom varje variabel har sin egen kopia av värdet, påverkas inte `x` när `y` tilldelas ett nytt värde på nästa rad. `x` behåller sitt ursprungliga värde, vilket är 3.
 
 Den andra metoden returnerar 4 eftersom när raden `y = x` körs, refererar både `x` och `y` till samma objekt i minnet. När sedan `y.MyValue = 4` körs, ändras värdet på det gemensamma objektet, vilket innebär att både `y.MyValue` och `x.MyValue` nu har värdet 4.
