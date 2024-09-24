@@ -32,10 +32,10 @@ namespace SkalProj_Datastrukturer_Minne
                         ExamineCollection(new List<string>(), "List", AddToList, RemoveFromList);
                         break;
                     case '2':
-                        ExamineCollection(new Queue<string>(), "Examine Queue Menu", AddToQueue, RemoveFromQueue);
+                        ExamineCollection(new Queue<string>(), "Queue", AddToQueue, RemoveFromQueue);
                         break;
                     case '3':
-                        ExamineStack();
+                        ExamineCollection(new Stack<string>(), "Stack", AddToStack, RemoveFromStack);
                         break;
                     case '4':
                         CheckParanthesis();
@@ -136,20 +136,31 @@ namespace SkalProj_Datastrukturer_Minne
                 queue.Dequeue();
                 return true;
             }
-            if(queue.Count == 0) Console.WriteLine("Queue is empty");
+            if (queue.Count == 0) Console.WriteLine("Queue is empty");
             return false;
         }
 
         /* <summary>
-
          FIFO = First in, First Out
-
         </summary> */
 
 
+        // Stack
+        static void AddToStack(Stack<string> stack, string value) => stack.Push(value);
+        static bool RemoveFromStack(Stack<string> stack, string value)
+        {
+            if (stack.Count > 0)
+            {
+                stack.Pop();
+                return true;
+            }
+            if (stack.Count == 0) Console.WriteLine("Stack is empty");
+            return false;
+        }
+
         static void DisplayCollectionStatus<T>(T collection) where T : IEnumerable<string>
         {
-              string collectionName = collection.GetType().Name;
+            string collectionName = collection.GetType().Name;
 
             if (collection is List<string> list)
             {
@@ -159,63 +170,15 @@ namespace SkalProj_Datastrukturer_Minne
             {
                 Console.WriteLine($"Ammount in queue: {queue.Count}");
             }
+            if (collection is Stack<string> stack)
+            {
+                Console.WriteLine($"Ammount in stack: {stack.Count}");
+            }
 
             Console.WriteLine($"Current values in {collectionName}: {string.Join(", ", collection)}");
         }
-     
-
-
-
-        static void ExamineStack()
-        {
-            Stack<string> stack = new Stack<string>();
-            bool isActive = true;
-
-            while (isActive)
-            {
-                Utils.RenderMenu("Examine Stack Menu", Constants.ExamineQueueMenuOptions);
-                string input = Utils.AskForMenuOption("+(&& exact name) OR - OR the digit 0 to exit");
-
-                char nav = input[0];
-
-                switch (nav)
-                {
-                    case '+':
-                        string value = input.Substring(1).Trim();
-                        stack.Push(value);
-                        Console.WriteLine($"The name: {value} has been added to the Stack");
-                        break;
-
-                    case '-':
-                        if (stack.Count > 0)
-                        {
-                            string deletedValue = stack.Pop();
-                            Console.WriteLine($"The name: {deletedValue} has been deleted from the Stack");
-                        }
-                        else
-                        {
-                            Console.WriteLine($"The stack is empty");
-                        }
-                        break;
-
-                    case '0':
-                        Console.WriteLine($"Back to Main Menu");
-                        isActive = false;
-                        break;
-
-                    default:
-                        Console.WriteLine("Please enter som valid input (+, -) or 0 to exit");
-                        break;
-                }
-
-                Console.WriteLine($"Ammount in queue: {stack.Count}");
-                Console.WriteLine("Current queue: " + string.Join(", ", stack));
-            }
-        }
         /* <summary>
-
-       LIFO = Last in, First Out
-
+         LIFO = Last in, First Out
        </summary> */
 
         static void CheckParanthesis()
