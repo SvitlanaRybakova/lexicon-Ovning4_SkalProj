@@ -32,7 +32,7 @@ namespace SkalProj_Datastrukturer_Minne
                         ExamineCollection(new List<string>(), "List", AddToList, RemoveFromList);
                         break;
                     case '2':
-                        ExamineQueue();
+                        ExamineCollection(new Queue<string>(), "Examine Queue Menu", AddToQueue, RemoveFromQueue);
                         break;
                     case '3':
                         ExamineStack();
@@ -104,9 +104,9 @@ namespace SkalProj_Datastrukturer_Minne
             }
         }
 
+        // List
         static void AddToList(List<string> list, string value) => list.Add(value);
         static bool RemoveFromList(List<string> list, string value) => list.Remove(value);
-
 
         /* <summary>
         2. Listans kapacitet ökar när antalet element i listan överstiger dess nuvarande kapacitet. 
@@ -127,68 +127,44 @@ namespace SkalProj_Datastrukturer_Minne
        </summary> */
 
 
-        static void DisplayCollectionStatus<T>(T collection) where T : IEnumerable<string>
+        // Queue
+        static void AddToQueue(Queue<string> queue, string value) => queue.Enqueue(value);
+        static bool RemoveFromQueue(Queue<string> queue, string value)
         {
-        
-            if (collection is List<string> list)
+            if (queue.Count > 0)
             {
-                Console.WriteLine($"Ammount: {list.Count}, Capasity: {list.Capacity}");
+                queue.Dequeue();
+                return true;
             }
-
-            Console.WriteLine("Current calues in collection: " + string.Join(", ", collection));
-        }
-        static void ExamineQueue()
-        {
-            Queue<string> queue = new Queue<string>();
-            bool isActive = true;
-
-            while (isActive)
-            {
-                Utils.RenderMenu("Examine Queue Menu", Constants.ExamineQueueMenuOptions);
-                string input = Utils.AskForMenuOption("+(&& exact name) OR - OR the digit 0 to exit");
-
-                char nav = input[0];
-
-                switch (nav)
-                {
-                    case '+':
-                        string value = input.Substring(1).Trim();
-                        queue.Enqueue(value);
-                        Console.WriteLine($"The name: {value} has been added to the Queue");
-                        break;
-
-                    case '-':
-                        if (queue.Count > 0)
-                        {
-                            string deletedValue = queue.Dequeue();
-                            Console.WriteLine($"The name: {deletedValue} has been deleted from the Queue");
-                        }
-                        else
-                        {
-                            Console.WriteLine($"The queue is empty");
-                        }
-                        break;
-
-                    case '0':
-                        Console.WriteLine($"Back to Main Menu");
-                        isActive = false;
-                        break;
-
-                    default:
-                        Console.WriteLine("Please enter som valid input (+, -) or 0 to exit");
-                        break;
-                }
-
-                Console.WriteLine($"Ammount in queue: {queue.Count}");
-                Console.WriteLine("Current queue: " + string.Join(", ", queue));
-            }
+            if(queue.Count == 0) Console.WriteLine("Queue is empty");
+            return false;
         }
 
         /* <summary>
 
-        FIFO = First in, First Out
-        
+         FIFO = First in, First Out
+
         </summary> */
+
+
+        static void DisplayCollectionStatus<T>(T collection) where T : IEnumerable<string>
+        {
+              string collectionName = collection.GetType().Name;
+
+            if (collection is List<string> list)
+            {
+                Console.WriteLine($"Ammount: {list.Count}, Capasity: {list.Capacity}");
+            }
+            if (collection is Queue<string> queue)
+            {
+                Console.WriteLine($"Ammount in queue: {queue.Count}");
+            }
+
+            Console.WriteLine($"Current values in {collectionName}: {string.Join(", ", collection)}");
+        }
+     
+
+
 
         static void ExamineStack()
         {
