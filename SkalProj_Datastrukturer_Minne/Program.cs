@@ -29,13 +29,13 @@ namespace SkalProj_Datastrukturer_Minne
                 switch (input)
                 {
                     case '1':
-                        ExamineCollection(new List<string>(), "List", AddToList, RemoveFromList);
+                        ExamineCollection(new List<string>(), Constants.MenuOption.List, AddToList, RemoveFromList);
                         break;
                     case '2':
-                        ExamineCollection(new Queue<string>(), "Queue", AddToQueue, RemoveFromQueue);
+                        ExamineCollection(new Queue<string>(), Constants.MenuOption.Queue, AddToQueue, RemoveFromQueue);
                         break;
                     case '3':
-                        ExamineCollection(new Stack<string>(), "Stack", AddToStack, RemoveFromStack);
+                        ExamineCollection(new Stack<string>(), Constants.MenuOption.Stack, AddToStack, RemoveFromStack);
                         break;
                     case '4':
                         CheckParanthesis();
@@ -55,13 +55,13 @@ namespace SkalProj_Datastrukturer_Minne
         }
 
 
-        static void ExamineCollection<T>(T collection, string menuTitle, Action<T, string> addAction, Func<T, string, bool> removeAction) where T : IEnumerable<string>
+        static void ExamineCollection<T>(T collection, Constants.MenuOption menuTitle, Action<T, string> addAction, Func<T, string, bool> removeAction) where T : IEnumerable<string>
         {
             bool isActive = true;
 
             while (isActive)
             {
-                Utils.RenderMenu(menuTitle, Constants.ExamineListMenuOptions);
+                Utils.RenderMenu(menuTitle);
                 string input = Utils.AskForMenuOption("+/- (& exact name) OR the digit 0 to exit");
 
                 if (string.IsNullOrWhiteSpace(input))
@@ -161,7 +161,7 @@ namespace SkalProj_Datastrukturer_Minne
         static void DisplayCollectionStatus<T>(T collection) where T : IEnumerable<string>
         {
             string collectionName = collection.GetType().Name;
-
+        
             if (collection is List<string> list)
             {
                 Console.WriteLine($"Ammount: {list.Count}, Capasity: {list.Capacity}");

@@ -7,25 +7,12 @@ namespace SkalProj_Datastrukturer_Minne
 {
     public class Constants
     {
-        public static readonly string[] ExamineListMenuOptions =
+
+        public enum MenuOption
         {
-        "Press +(exact name) to add name to the List",
-        "Press -(exact name) to remove name from the List",
-        "Press the digit 0 to exit to the Main Menu"
+            List,
+            Queue,
+            Stack
+        }
     };
-
-        public static readonly string[] ExamineQueueMenuOptions =
-           {
-        "Press +(exact name) to add name to the Queue",
-        "Press - to remove FIFO name from the Queue",
-        "Press the digit 0 to exit to the Main Menu"
-    };
-
-         public static readonly string[] ExamineStackMenuOptions =
-           {
-        "Press +(exact name) to add name to the Stack",
-        "Press - to remove LIFO name from the Stack",
-        "Press the digit 0 to exit to the Main Menu"
-    };
-    }
 }
