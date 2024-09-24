@@ -37,7 +37,7 @@ namespace SkalProj_Datastrukturer_Minne
         public static void RenderMenu(string menuTitle, string[] menuOptions)
         {
             Console.WriteLine("*********************");
-            Console.WriteLine(menuTitle);
+            Console.WriteLine($"Examine {menuTitle} Menu");
 
             foreach (var option in menuOptions)
             {

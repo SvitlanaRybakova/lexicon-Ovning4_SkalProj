@@ -29,7 +29,7 @@ namespace SkalProj_Datastrukturer_Minne
                 switch (input)
                 {
                     case '1':
-                        ExamineList();
+                        ExamineCollection(new List<string>(), "List", AddToList, RemoveFromList);
                         break;
                     case '2':
                         ExamineQueue();
@@ -54,50 +54,58 @@ namespace SkalProj_Datastrukturer_Minne
             }
         }
 
-        static void ExamineList()
+
+        static void ExamineCollection<T>(T collection, string menuTitle, Action<T, string> addAction, Func<T, string, bool> removeAction) where T : IEnumerable<string>
         {
-            List<string> lits = new List<string>();
             bool isActive = true;
 
             while (isActive)
             {
-                Utils.RenderMenu("Examine List Menu", Constants.ExamineListMenuOptions);
-                string input = Utils.AskForMenuOption("+/-(&& exact name) OR the digit 0 to exit");
+                Utils.RenderMenu(menuTitle, Constants.ExamineListMenuOptions);
+                string input = Utils.AskForMenuOption("+/- (& exact name) OR the digit 0 to exit");
 
-                char nav = input[0]; // detect the First sign (+ or -)
-                string value = input.Substring(1).Trim().ToLower(); // rest of the value (name in the best case)
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    Console.WriteLine("Please enter a valid input.");
+                    continue;
+                }
+
+                char nav = input[0];
+                string value = input.Substring(1).Trim().ToLower();
 
                 switch (nav)
                 {
                     case '+':
-                        lits.Add(value);
-                        Console.WriteLine($"The name: {value} has been added to the List");
+                        addAction(collection, value);
                         break;
 
                     case '-':
-                        if (lits.Remove(value))
+                        if (removeAction(collection, value))
                         {
-                            Console.WriteLine($"The name: {value} has been deleted from the List");
+                            Console.WriteLine($"The name '{value}' has been deleted.");
                         }
                         else
                         {
-                            Console.WriteLine($"The name {value} not been found.");
+                            Console.WriteLine($"The name '{value}' was not found.");
                         }
                         break;
 
                     case '0':
-                        Console.WriteLine($"Back to Main Menu");
+                        Console.WriteLine("Back to Main Menu");
                         isActive = false;
                         break;
 
                     default:
-                        Console.WriteLine("Please enter som valid input (+, -) or 0 to exit");
+                        Console.WriteLine("Please enter a valid input (+, -) or 0 to exit");
                         break;
                 }
 
-                Console.WriteLine($"Ammount: {lits.Count}, Capasity: {lits.Capacity}");
+                DisplayCollectionStatus(collection);
             }
         }
+
+        static void AddToList(List<string> list, string value) => list.Add(value);
+        static bool RemoveFromList(List<string> list, string value) => list.Remove(value);
 
 
         /* <summary>
@@ -119,6 +127,16 @@ namespace SkalProj_Datastrukturer_Minne
        </summary> */
 
 
+        static void DisplayCollectionStatus<T>(T collection) where T : IEnumerable<string>
+        {
+        
+            if (collection is List<string> list)
+            {
+                Console.WriteLine($"Ammount: {list.Count}, Capasity: {list.Capacity}");
+            }
+
+            Console.WriteLine("Current calues in collection: " + string.Join(", ", collection));
+        }
         static void ExamineQueue()
         {
             Queue<string> queue = new Queue<string>();
@@ -174,7 +192,7 @@ namespace SkalProj_Datastrukturer_Minne
 
         static void ExamineStack()
         {
-             Stack<string> stack = new Stack<string>();
+            Stack<string> stack = new Stack<string>();
             bool isActive = true;
 
             while (isActive)
@@ -218,11 +236,11 @@ namespace SkalProj_Datastrukturer_Minne
                 Console.WriteLine("Current queue: " + string.Join(", ", stack));
             }
         }
-         /* <summary>
+        /* <summary>
 
-        LIFO = Last in, First Out
+       LIFO = Last in, First Out
 
-        </summary> */
+       </summary> */
 
         static void CheckParanthesis()
         {
