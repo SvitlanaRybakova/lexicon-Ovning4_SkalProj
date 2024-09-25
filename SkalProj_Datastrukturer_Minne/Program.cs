@@ -161,7 +161,7 @@ namespace SkalProj_Datastrukturer_Minne
         static void DisplayCollectionStatus<T>(T collection) where T : IEnumerable<string>
         {
             string collectionName = collection.GetType().Name;
-        
+
             if (collection is List<string> list)
             {
                 Console.WriteLine($"Ammount: {list.Count}, Capasity: {list.Capacity}");
@@ -189,6 +189,40 @@ namespace SkalProj_Datastrukturer_Minne
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
 
+            string input = "(())}";
+            Stack<char> stack = new Stack<char>();
+
+            foreach (char currentParanthese in input)
+            {
+                if (currentParanthese == '(' || currentParanthese == '{' || currentParanthese == '[')
+                {
+                    stack.Push(currentParanthese); // Push to stack
+                }
+                else if (currentParanthese == ')' || currentParanthese == '}' || currentParanthese == ']')
+                {
+                    if (stack.Count == 0)
+                    {
+                        Console.WriteLine("Incorrect formatting");
+                        return;
+                    }
+
+                    char parantheseInStack = stack.Pop(); // Get the last opening bracket from the stack
+                    if (!Utils.IsFormattingCorrect(parantheseInStack, currentParanthese))
+                    {
+                        Console.WriteLine("Incorrect formatting");
+                        return;
+                    }
+                }
+            }
+
+            if (stack.Count == 0)
+            {
+                Console.WriteLine("Forrmatting is correct");
+            }
+            else
+            {
+                Console.WriteLine("Incorrect formatting");
+            }
         }
 
     }

@@ -82,6 +82,12 @@ namespace SkalProj_Datastrukturer_Minne
             }
         }
 
+        public static bool IsFormattingCorrect (char openParanthese, char closeParanthese)
+        {
+            return (openParanthese == '(' && closeParanthese == ')') ||
+                   (openParanthese == '{' && closeParanthese == '}') ||
+                   (openParanthese == '[' && closeParanthese == ']');
+        }
 
     }
 }
