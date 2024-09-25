@@ -8,6 +8,7 @@ namespace SkalProj_Datastrukturer_Minne
         static void Main()
         {
 
+
             while (true)
             {
                 Console.WriteLine("Please navigate through the menu by inputting the number \n(1, 2, 3 ,4, 0) of your choice"
@@ -15,6 +16,7 @@ namespace SkalProj_Datastrukturer_Minne
                     + "\n2. Examine a Queue"
                     + "\n3. Examine a Stack"
                     + "\n4. CheckParenthesis"
+                    + "\n5. RecursiveEven"
                     + "\n0. Exit the application");
                 char input = ' ';
                 try
@@ -39,6 +41,9 @@ namespace SkalProj_Datastrukturer_Minne
                         break;
                     case '4':
                         CheckParanthesis();
+                        break;
+                    case '5':
+                        CalculateAndDisplay(RecursiveEven, 5);
                         break;
                     /*
                      * Extend the menu to include the recursive 
@@ -217,13 +222,32 @@ namespace SkalProj_Datastrukturer_Minne
 
             if (stack.Count == 0)
             {
-                Console.WriteLine("Forrmatting is correct");
+                Console.WriteLine("Formatting is correct");
             }
             else
             {
                 Console.WriteLine("Incorrect formatting");
             }
         }
+
+        delegate int EvenNumberCallback(int n);
+        static int RecursiveEven(int n)
+        {
+            if (n == 1)
+            {
+                return 2;
+            }
+            return RecursiveEven(n - 1) + 2;
+        }
+
+        static void CalculateAndDisplay(EvenNumberCallback callback, int n)
+        {
+            int evenNumber = callback(n);  
+            Console.WriteLine($"The {n}th even number is: {evenNumber}");
+        }
+
+
+
 
     }
 }
