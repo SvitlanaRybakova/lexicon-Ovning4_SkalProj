@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Net;
+using System.Text;
 
 namespace SkalProj_Datastrukturer_Minne
 {
@@ -16,7 +18,8 @@ namespace SkalProj_Datastrukturer_Minne
                     + "\n2. Examine a Queue"
                     + "\n3. Examine a Stack"
                     + "\n4. CheckParenthesis"
-                    + "\n5. RecursiveEven"
+                    + "\n5. ReverseText"
+                    + "\n6. RecursiveEven"
                     + "\n0. Exit the application");
                 char input = ' ';
                 try
@@ -43,6 +46,9 @@ namespace SkalProj_Datastrukturer_Minne
                         CheckParanthesis();
                         break;
                     case '5':
+                        ReverseText();
+                        break;
+                    case '6':
                         CalculateAndDisplay(RecursiveEven, 5);
                         break;
                     /*
@@ -163,6 +169,9 @@ namespace SkalProj_Datastrukturer_Minne
             return false;
         }
 
+        /* <summary>
+               LIFO = Last in, First Out
+        </summary> */
         static void DisplayCollectionStatus<T>(T collection) where T : IEnumerable<string>
         {
             string collectionName = collection.GetType().Name;
@@ -182,10 +191,25 @@ namespace SkalProj_Datastrukturer_Minne
 
             Console.WriteLine($"Current values in {collectionName}: {string.Join(", ", collection)}");
         }
-        /* <summary>
-         LIFO = Last in, First Out
-       </summary> */
 
+        static void ReverseText()
+        {
+            string input = Utils.AskForString("Enter any message");
+            Stack<char> stack = new Stack<char>();
+            StringBuilder reversedText = new StringBuilder();
+
+            foreach (char value in input)
+            {
+                stack.Push(value);
+            }
+
+            while (stack.Count > 0)
+            {
+                reversedText.Append(stack.Pop());
+            }
+
+            Console.WriteLine($"Reversed text is: {reversedText}");
+        }
         static void CheckParanthesis()
         {
             /*
@@ -230,6 +254,7 @@ namespace SkalProj_Datastrukturer_Minne
             }
         }
 
+        #region deligate example
         delegate int EvenNumberCallback(int n);
         static int RecursiveEven(int n)
         {
@@ -242,11 +267,11 @@ namespace SkalProj_Datastrukturer_Minne
 
         static void CalculateAndDisplay(EvenNumberCallback callback, int n)
         {
-            int evenNumber = callback(n);  
+            int evenNumber = callback(n);
             Console.WriteLine($"The {n}th even number is: {evenNumber}");
         }
 
-
+        #endregion
 
 
     }
