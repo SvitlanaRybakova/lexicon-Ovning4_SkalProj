@@ -20,6 +20,7 @@ namespace SkalProj_Datastrukturer_Minne
                     + "\n4. CheckParenthesis"
                     + "\n5. ReverseText"
                     + "\n6. RecursiveEven"
+                    + "\n7. FibonacciSequence"
                     + "\n0. Exit the application");
                 char input = ' ';
                 try
@@ -51,6 +52,10 @@ namespace SkalProj_Datastrukturer_Minne
                     case '6':
                         CalculateAndDisplay(RecursiveEven, 5);
                         break;
+                    case '7':
+                        RenderFibonacciSequence(21);
+                        break;
+
                     /*
                      * Extend the menu to include the recursive 
                      * and iterative exercises.
@@ -273,6 +278,25 @@ namespace SkalProj_Datastrukturer_Minne
 
         #endregion
 
+
+        static int FibonacciSequence(int number)
+        {
+            if (number <= 1)
+            {
+                return number;
+            }
+
+            return FibonacciSequence(number - 1) + FibonacciSequence(number - 2);
+
+        }
+        static void RenderFibonacciSequence(int number)
+        {
+            for (int i = 0; i <= number; i++)
+            {
+                Console.Write($"The Fibonacci Sequence is:  {FibonacciSequence(i) + (i == number ? "" : ", ")}");
+            }
+            Console.WriteLine(); 
+        }
 
     }
 }
